@@ -7,7 +7,7 @@ public class AssignmentTask {
     private Course course;
     private int estimatedHours;
     private int daysUntilDue;
-    boolean completed;
+    private boolean completed;
 
     // Constructor
     AssignmentTask(String title, Course course, int estimatedHours, int daysUntilDue){
@@ -18,11 +18,11 @@ public class AssignmentTask {
     }
 
     // Methods
-    void markCompleted(){
+    public void markCompleted(){
         completed = true;
     }
 
-    boolean isCompleted(){
+    public boolean isUrgent(){
         return daysUntilDue <= 2 & !completed;
     }
 
@@ -30,31 +30,47 @@ public class AssignmentTask {
     public String toString(){
         return "AssignmentTask{" +
                 "title='" + title +
-                "', course='" + course +
+                "', course='" + course.getName() +
                 "', estimatedHours=" + estimatedHours +
-                "'dueIn=" + daysUntilDue +
-                "completed=" + completed +
+                ", dueIn=" + daysUntilDue +
+                ", completed=" + completed +
                 "}";
     }
 
     // Getters and setters
+    public String getTitle(){
+        return title;
+    }
+    public void setTitle(String title){
+        this.title = title;
+    }
+
+    public Course getCourse(){
+        return course;
+    }
+    public void setCourse(Course course){
+        this.course = course;
+    }
+
+    public int getEstimatedHours(){
+        return estimatedHours;
+    }
+    public void setEstimatedHours(int estimatedHours){
+        this.estimatedHours = estimatedHours;
+    }
+
+    public int getDaysUntilDue(){
+        return daysUntilDue;
+    }
+    public void setDaysUntilDue(int daysUntilDue){
+        this.daysUntilDue = daysUntilDue;
+    }
+
+    public boolean isCompleted(){
+        return completed;
+    }
+    public void setCompleted(boolean completed){
+        this.completed = completed;
+    }
 
 }
-
-/*
-2) AssignmentTask
-Represents a piece of coursework for a course.
-Fields (private):
-String title
-Course course (the course it belongs to)
-int estimatedHours (how long you think it will take)
-int daysUntilDue (0 means due today, 1 means due tomorrow, etc.)
-boolean completed
-Constructor:
-AssignmentTask(String title, Course course, int estimatedHours, int daysUntilDue)
-Methods (public):
-Getters for each field (no setter for course is fine).
-void markCompleted() sets completed = true.
-boolean isUrgent() returns true if daysUntilDue <= 2 and !completed.
-String toString() with a friendly format, e.g.:"AssignmentTask{title='Lab 2', course='OOP', estHours=3, dueIn=1, completed=false}"
-*/
