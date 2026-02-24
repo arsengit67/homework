@@ -1,2 +1,1 @@
-To view homework go to src folder
-In scr folder there are packages assigned to different assignments
+To view homework go to src folder there are packages for different assignments
