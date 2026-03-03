@@ -1,38 +1,36 @@
 package campus_life_planner;
 
-public class AssignmentTask {
+public class PlanItem {
 
     // Fields
     private String title;
-    private Course course;
     private int estimatedHours;
-    private int daysUntilDue;
     private boolean completed;
 
     // Constructor
-    AssignmentTask(String title, Course course, int estimatedHours, int daysUntilDue){
+    PlanItem(String title, int estimatedHours){
         this.title = title;
-        this.course = course;
         this.estimatedHours = estimatedHours;
-        this.daysUntilDue = daysUntilDue;
     }
 
     // Methods
+
+    public void display(){
+        System.out.println("Title: " + title +
+                ", Estimated Hours: " + estimatedHours +
+                ", Completed: " + completed);
+    }
+
     public void markCompleted(){
         completed = true;
     }
 
-    public boolean isUrgent(){
-        return daysUntilDue <= 2 & !completed;
-    }
 
     @Override
     public String toString(){
-        return "AssignmentTask{" +
+        return "PlanItem{" +
                 "title='" + title +
-                "', course='" + course.getName() +
                 "', estimatedHours=" + estimatedHours +
-                ", dueIn=" + daysUntilDue +
                 ", completed=" + completed +
                 "}";
     }
@@ -45,12 +43,6 @@ public class AssignmentTask {
         this.title = title;
     }
 
-    public Course getCourse(){
-        return course;
-    }
-    public void setCourse(Course course){
-        this.course = course;
-    }
 
     public int getEstimatedHours(){
         return estimatedHours;
@@ -59,12 +51,6 @@ public class AssignmentTask {
         this.estimatedHours = estimatedHours;
     }
 
-    public int getDaysUntilDue(){
-        return daysUntilDue;
-    }
-    public void setDaysUntilDue(int daysUntilDue){
-        this.daysUntilDue = daysUntilDue;
-    }
 
     public boolean isCompleted(){
         return completed;

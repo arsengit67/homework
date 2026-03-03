@@ -16,15 +16,15 @@ public class Main {
         courses.add(programmingLanguages);
 
         // Assignment Tasks
-        ArrayList<AssignmentTask> assignmentTasks = new ArrayList<>();
-        AssignmentTask integrals = new AssignmentTask("Definite integrals", calculus, 2, 7);
-        assignmentTasks.add(integrals);
-        AssignmentTask derivatives = new AssignmentTask("Higher-order derivatives", calculus, 4, 1);
-        assignmentTasks.add(derivatives);
-        AssignmentTask classesAndObjects = new AssignmentTask("Classes and Objects", programmingLanguages, 3, 2);
-        assignmentTasks.add(classesAndObjects);
-        AssignmentTask publicSpeech = new AssignmentTask("Public Speech", english, 1, 3);
-        assignmentTasks.add(publicSpeech);
+        ArrayList<Assignment> assignments = new ArrayList<>();
+        Assignment integrals = new Assignment("Definite integrals", 2, calculus, 7);
+        assignments.add(integrals);
+        Assignment derivatives = new Assignment("Higher-order derivatives", 4, calculus, 1);
+        assignments.add(derivatives);
+        Assignment classesAndObjects = new Assignment("Classes and Objects", 3, programmingLanguages, 2);
+        assignments.add(classesAndObjects);
+        Assignment publicSpeech = new Assignment("Public Speech", 1, english, 3);
+        assignments.add(publicSpeech);
 
         // Study Sessions
         ArrayList<StudySession> studySessions = new ArrayList<>();
@@ -47,17 +47,14 @@ public class Main {
 
         // List of all assignments
         System.out.println("List of all assignments:");
-        for (AssignmentTask task : assignmentTasks){
-            if (task.isUrgent())
-                System.out.println("URGENT: " + task);
-            else
-                System.out.println(task);
+        for (Assignment task : assignments){
+            task.display();
         }
         System.out.println();
 
         // Total estimated hours remaining for all incompleted tasks
         int totalEstimatedHours = 0;
-        for (AssignmentTask task : assignmentTasks){
+        for (PlanItem task : assignments){
             if (!task.isCompleted()){
                 totalEstimatedHours += task.getEstimatedHours();
             }
@@ -83,14 +80,61 @@ public class Main {
 
         // Mark one assignment as completed and reprint it with new remaining estimated hours
         integrals.markCompleted();
-        System.out.println(integrals);
+        integrals.display();
         totalEstimatedHours = 0;
-        for (AssignmentTask task : assignmentTasks){
+        for (PlanItem task : assignments){
             if (!task.isCompleted()){
                 totalEstimatedHours += task.getEstimatedHours();
             }
         }
         System.out.println("Total estimated hours remaining for all incompleted tasks: " + totalEstimatedHours + "\n");
+
+        // Create a mix of different plan item types
+        Training volleyball = new Training("Volleyball practice session", 2, 1);
+        Training gym = new Training("Gym session", 2, 2);
+        ExamPreparation calculusExamPrep = new ExamPreparation("Calculus Exam Prep", 4, calculus, 0);
+        Event competition = new Event("Arm wrestling competition", 2, 5);
+
+        // Store them together in a single collection of the base type
+        ArrayList<PlanItem> planItems = new ArrayList<>(assignments);
+        planItems.add(volleyball);
+        planItems.add(gym);
+        planItems.add(calculusExamPrep);
+        planItems.add(competition);
+
+        // Print all items
+        System.out.println("List of all plan items:");
+        for (PlanItem item : planItems){
+            item.display();
+        }
+        System.out.println();
+
+        // Mark completed and reflect updates
+        volleyball.markCompleted();
+        competition.markCompleted();
+
+        volleyball.display();
+        competition.display();
+        System.out.println();
+
+        // Perform simple summarizing tasks
+        // Total remaining time
+        int totalRemainingTime = 0;
+        for (PlanItem item : planItems){
+            totalRemainingTime += item.getEstimatedHours();
+        }
+        System.out.println("Total remaining time = " + totalRemainingTime);
+        System.out.println();
+
+        // Most urgent activity
+        Assignment mostUrgentTask = assignments.getFirst();
+        for (Assignment task : assignments){
+            if (task.getDaysUntilDue() < mostUrgentTask.getDaysUntilDue()){
+                mostUrgentTask = task;
+            }
+        }
+        System.out.println("Most urgent item: " + mostUrgentTask.getTitle());
+        System.out.println();
 
     }
 }
